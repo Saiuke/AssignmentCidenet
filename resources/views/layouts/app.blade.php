@@ -27,7 +27,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
-<body class="sb-nav-fixed">
+<body class="sb-nav-fixed sb-sidenav-toggled">
 <div id="app">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
@@ -43,8 +43,8 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
                         <a class="nav-link" href="{!! route('employees.index') !!}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
+                            <div class="sb-nav-link-icon"><i class="bi bi-person-badge-fill"></i></div>
+                            Employees
                         </a>
                     </div>
                 </div>
