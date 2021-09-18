@@ -19,11 +19,11 @@ class Employees extends Migration
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
-            $table->string('other_name');
+            $table->string('other_name')->nullable();
             $table->string('work_country');
             $table->string('document_type');
             $table->string('document_number');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('department');
             $table->string('status');
             $table->date('start_date');

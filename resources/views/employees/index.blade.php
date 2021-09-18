@@ -29,7 +29,6 @@
                             <th>Document type</th>
                             <th>Document number</th>
                             <th>E-mail</th>
-                            <th>Department</th>
                             <th>Status</th>
                             <th>Option</th>
                         </tr>
@@ -62,7 +61,6 @@
                     {"data": "document_type"},
                     {"data": "document_number"},
                     {"data": "email"},
-                    {"data": "department"},
                     {"data": "status"},
                     {
                         "data": "id",
@@ -96,7 +94,7 @@
             $("body").on("click", ".delete-entry", (event) => {
                 let clickedButton = event.currentTarget;
                 let callURL = clickedButton.getAttribute('data-action-route');
-                let entryId = clickedButton.getAttribute('data-entry-id');npm
+                let entryId = clickedButton.getAttribute('data-entry-id');
                 swal({
                     title: "Are you sure?",
                     text: "Once deleted, you will not be able to recover the data!",

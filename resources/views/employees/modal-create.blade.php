@@ -16,25 +16,29 @@
         <div class="row">
             <div class="mb-3 col-6">
                 <label for="name" class="form-label">First Name</label>
-                <input type="text" name="first_name" value="{{ $employee->first_name ?? '' }}" class="form-control text-uppercase" id="first_name" required
+                <input type="text" name="first_name" value="{{ $employee->first_name ?? '' }}"
+                       class="form-control text-uppercase" id="first_name" required
                        max="20" pattern="[A-Za-z]{1,20}">
             </div>
             <div class="mb-3 col-6">
                 <label for="email" class="form-label">Other name</label>
-                <input type="text" name="other_name" value="{{ $employee->first_name ?? '' }}" class="form-control text-uppercase" id="other_name" required
-                       max="50" pattern="[A-Za-z]{1,50}">
+                <input type="text" name="other_name" value="{{ $employee->first_name ?? '' }}"
+                       class="form-control text-uppercase" id="other_name"
+                       max="50" pattern="[a-zA-Z\s]{1,50}">
             </div>
         </div>
 
         <div class="row">
             <div class="mb-3 col-6">
                 <label for="document" class="form-label">Middle name</label>
-                <input type="text" name="middle_name" value="{{ $employee->middle_name ?? '' }}" class="form-control text-uppercase" id="middle_name" required
+                <input type="text" name="middle_name" value="{{ $employee->middle_name ?? '' }}"
+                       class="form-control text-uppercase" id="middle_name" required
                        max="20" pattern="[A-Za-z]{1,20}">
             </div>
             <div class="mb-3 col-6">
                 <label for="phone" class="form-label">Last name</label>
-                <input type="tel" name="last_name" value="{{ $employee->last_name ?? '' }}" class="form-control text-uppercase" id="last_name" required max="20"
+                <input type="tel" name="last_name" value="{{ $employee->last_name ?? '' }}"
+                       class="form-control text-uppercase" id="last_name" required max="20"
                        pattern="[A-Za-z]{1,20}">
             </div>
         </div>
@@ -43,15 +47,28 @@
             <div class="mb-3 col-6">
                 <label for="address" class="form-label">Document type</label>
                 <select name="document_type" class="form-select" id="document_type" required>
-                    <option value="Cédula de Ciudadanía" {{ (isset($employee->document_type) && $employee->document_type == 'Cédula de Ciudadanía') ? 'selected' : '' }}>Cédula de Ciudadanía</option>
-                    <option value="Cédula de Extranjería" {{ (isset($employee->document_type) && $employee->document_type == 'Cédula de Extranjería') ? 'selected' : '' }}>Cédula de Extranjería</option>
-                    <option value="Pasaporte" {{ (isset($employee->document_type) && $employee->document_type == 'Pasaporte') ? 'selected' : '' }}>Pasaporte</option>
-                    <option value="Permiso Especial" {{ (isset($employee->document_type) && $employee->document_type == 'Permiso Especial') ? 'selected' : '' }}>Permiso Especial</option>
+                    <option
+                        value="Cédula de Ciudadanía" {{ (isset($employee->document_type) && $employee->document_type == 'Cédula de Ciudadanía') ? 'selected' : '' }}>
+                        Cédula de Ciudadanía
+                    </option>
+                    <option
+                        value="Cédula de Extranjería" {{ (isset($employee->document_type) && $employee->document_type == 'Cédula de Extranjería') ? 'selected' : '' }}>
+                        Cédula de Extranjería
+                    </option>
+                    <option
+                        value="Pasaporte" {{ (isset($employee->document_type) && $employee->document_type == 'Pasaporte') ? 'selected' : '' }}>
+                        Pasaporte
+                    </option>
+                    <option
+                        value="Permiso Especial" {{ (isset($employee->document_type) && $employee->document_type == 'Permiso Especial') ? 'selected' : '' }}>
+                        Permiso Especial
+                    </option>
                 </select>
             </div>
             <div class="mb-3 col-6">
                 <label for="address" class="form-label">Document number</label>
-                <input type="text" name="document_number" value="{{ $employee->document_number ?? '' }}" class="form-control" id="document_number" required
+                <input type="text" name="document_number" value="{{ $employee->document_number ?? '' }}"
+                       class="form-control" id="document_number" required
                        pattern="[a-zA-Z0-9-]*">
             </div>
         </div>
@@ -60,29 +77,76 @@
             <div class="mb-3 col-4">
                 <label for="company" class="form-label">Work country</label>
                 <select name="work_country" class="form-select" id="work_country" required>
-                    <option value="Colombia" {{ (isset($employee->work_country) && $employee->work_country == 'Colombia') ? 'selected' : '' }}>Colombia</option>
-                    <option value="Estados Unidos" {{ (isset($employee->work_country) && $employee->work_country == 'Estados Unidos') ? 'selected' : '' }}>Estados Unidos</option>
+                    <option
+                        value="Colombia" {{ (isset($employee->work_country) && $employee->work_country == 'Colombia') ? 'selected' : '' }}>
+                        Colombia
+                    </option>
+                    <option
+                        value="Estados Unidos" {{ (isset($employee->work_country) && $employee->work_country == 'Estados Unidos') ? 'selected' : '' }}>
+                        Estados Unidos
+                    </option>
                 </select>
             </div>
             <div class="mb-3 col-4">
                 <label for="department" class="form-label">Department</label>
                 <select name="department" class="form-select" id="department" required>
-                    <option value="Administración" {{ (isset($employee->department) && $employee->department == 'Administración') ? 'selected' : '' }}>Administración</option>
-                    <option value="Financiera" {{ (isset($employee->department) && $employee->department == 'Financiera') ? 'selected' : '' }}>Financiera</option>
-                    <option value="Compras" {{ (isset($employee->department) && $employee->department == 'Compras') ? 'selected' : '' }}>Compras</option>
-                    <option value="Infraestructura" {{ (isset($employee->department) && $employee->department == 'Infraestructura') ? 'selected' : '' }}>Infraestructura</option>
-                    <option value="Talento Humano" {{ (isset($employee->department) && $employee->department == 'Talento Humano') ? 'selected' : '' }}>Talento Humano</option>
-                    <option value="Servicios Varios" {{ (isset($employee->department) && $employee->department == 'Servicios Varios') ? 'selected' : '' }}>Servicios Varios</option>
+                    <option
+                        value="Administración" {{ (isset($employee->department) && $employee->department == 'Administración') ? 'selected' : '' }}>
+                        Administración
+                    </option>
+                    <option
+                        value="Financiera" {{ (isset($employee->department) && $employee->department == 'Financiera') ? 'selected' : '' }}>
+                        Financiera
+                    </option>
+                    <option
+                        value="Compras" {{ (isset($employee->department) && $employee->department == 'Compras') ? 'selected' : '' }}>
+                        Compras
+                    </option>
+                    <option
+                        value="Infraestructura" {{ (isset($employee->department) && $employee->department == 'Infraestructura') ? 'selected' : '' }}>
+                        Infraestructura
+                    </option>
+                    <option
+                        value="Talento Humano" {{ (isset($employee->department) && $employee->department == 'Talento Humano') ? 'selected' : '' }}>
+                        Talento Humano
+                    </option>
+                    <option
+                        value="Servicios Varios" {{ (isset($employee->department) && $employee->department == 'Servicios Varios') ? 'selected' : '' }}>
+                        Servicios Varios
+                    </option>
                 </select>
             </div>
 
             <div class="mb-3 col-4">
                 <label for="start_date" class="form-label">Start date</label>
-                <input type="date" id="start_date" class="form-control" name="start_date" value="{{ $employee->start_date ?? '' }}" {{ !isset($employee->start_date) ? 'disabled readonly' : ''}}
+                <input type="date" id="start_date" class="form-control" name="start_date"
+                       value="{{ $employee->start_date ?? '' }}" {{ isset($employee->start_date) ? 'readonly' : ''}}
                        min="{!! oneMonthAgo() !!}" max="{!! getToday() !!}">
             </div>
 
         </div>
+
+        {{--Time stamps and mail address--}}
+        @isset($employee->id)
+            <div class="row">
+                <div class="mb-3 col-4">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" id="email" class="form-control" name="email"
+                           value="{{ $employee->email ?? '' }}" readonly disabled>
+                </div>
+                <div class="mb-3 col-4">
+                    <label for="updated_at" class="form-label">Updated at</label>
+                    <input type="text" id="updated_at" class="form-control" name="updated_at"
+                           value="{{ $employee->updated_at->format('d/m/Y H:i:s') ?? '' }}" readonly disabled>
+                </div>
+                <div class="mb-3 col-4">
+                    <label for="created_at" class="form-label">Created at</label>
+                    <input type="text" id="updated_at" class="form-control" name="created_at"
+                           value="{{ $employee->created_at->format('d/m/Y H:i:s') ?? '' }}" readonly disabled>
+                </div>
+            </div>
+        @endisset
+
         <div class="modal-footer pb-0 mt-3 pe-0">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i>&nbsp; {{ __('general.close') }}
             </button>
@@ -147,10 +211,10 @@
                     if (data.status == 422) {
                         let errorList = data.responseJSON.errors;
                         for (const [key, value] of Object.entries(errorList)) {
-                            let element = $("input[name="+ key +"]");
+                            let element = $("input[name=" + key + "]");
                             console.log(element);
                             element.addClass('is-invalid');
-                            element.after('<div class="invalid-feedback">'+ value +'</div>');
+                            element.after('<div class="invalid-feedback">' + value + '</div>');
                         }
                         errorMessage = "Invalid data. Review the submited data and try again.";
                     } else {

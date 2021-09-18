@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -16,7 +17,7 @@ class EmployeeController extends Controller
 
     public function getData()
     {
-        $data = Employee::all();
+        $data = Employee::orderBy('id', 'desc')->get();
         return Datatables::of($data)->make(true);
     }
 
@@ -28,45 +29,39 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => ['bail', 'required', 'max:20'],
-            'middle_name' => ['bail', 'required', 'max:20'],
-            'last_name' => ['bail', 'required', 'max:20'],
-            'other_name' => ['bail', 'required', 'max:50'],
+            'first_name' => ['bail', 'required', 'max:20', 'regex:/^[a-zA-Z]+$/u'],
+            'middle_name' => ['bail', 'required', 'max:20', 'regex:/^[a-zA-Z]+$/u'],
+            'last_name' => ['bail', 'required', 'max:20', 'regex:/^[a-zA-Z]+$/u'],
+            'other_name' => ['bail', 'max:50', 'regex:/^[a-zA-Z\s]+$/u'],
             'work_country' => ['bail', 'required'],
-            'document_type' => ['bail', 'required'],
-            'document_number' => ['bail', 'required', 'max:20'],
+            'document_type' => ['bail', 'required', 'max:20'],
+            'document_number' => ['bail', 'required', 'max:20', 'unique:employees'],
             'department' => ['bail', 'required'],
-            'start_date' => ['bail', 'required']
+            'start_date' => ['bail', 'required', 'before_or_equal:today', 'after_or_equal:' . Carbon::now()->subMonth()->format('Y-m-d')]
         ]);
 
         $newEmployee = new Employee([
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'last_name' => $request->last_name,
-            'other_name' => $request->other_name,
+            'first_name' => strtoupper($request->first_name),
+            'middle_name' => strtoupper($request->middle_name),
+            'last_name' => strtoupper($request->last_name),
+            'other_name' => strtoupper($request->other_name),
             'work_country' => $request->work_country,
             'document_type' => $request->document_type,
             'document_number' => $request->document_number,
-            'email' => $request->first_name . '@example.com' ,
             'department' => $request->department,
             'start_date' => $request->start_date,
             'status' => 'Active',
         ]);
 
-        return json_encode([
-            'success' => $newEmployee->save()
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Employee $Employee
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Employee $Employee)
-    {
-        //
+        try {
+            if ($newEmployee->save()) {
+                return json_encode([
+                    'success' => $newEmployee->generateEmailAddress()
+                ]);
+            }
+        } catch (\Exception $error) {
+            throw $error;
+        }
     }
 
     /**
@@ -88,15 +83,15 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee)
     {
         $request->validate([
-            'first_name' => ['bail', 'required', 'max:20'],
-            'middle_name' => ['bail', 'required', 'max:20'],
-            'last_name' => ['bail', 'required', 'max:20'],
-            'other_name' => ['bail', 'required', 'max:50'],
+            'first_name' => ['bail', 'required', 'max:20', 'regex:/^[a-zA-Z]+$/u'],
+            'middle_name' => ['bail', 'required', 'max:20', 'regex:/^[a-zA-Z]+$/u'],
+            'last_name' => ['bail', 'required', 'max:20', 'regex:/^[a-zA-Z]+$/u'],
+            'other_name' => ['bail', 'max:50', 'regex:/^[a-zA-Z\s]+$/u'],
             'work_country' => ['bail', 'required'],
-            'document_type' => ['bail', 'required'],
-            'document_number' => ['bail', 'required', 'max:20'],
+            'document_type' => ['bail', 'required', 'max:20'],
+            'document_number' => ['bail', 'required', 'max:20', 'unique:employees,document_number,' . $employee->id],
             'department' => ['bail', 'required'],
-            'start_date' => ['bail', 'required']
+            'start_date' => ['bail', 'required', 'before_or_equal:today', 'after_or_equal:' . Carbon::now()->subMonth()->format('Y-m-d')]
         ]);
 
         $employee->first_name = $request->first_name;
@@ -106,21 +101,26 @@ class EmployeeController extends Controller
         $employee->work_country = $request->work_country;
         $employee->document_type = $request->document_type;
         $employee->document_number = $request->document_number;
-        $employee->email = $request->first_name . '@example.com' ;
         $employee->department = $request->department;
         $employee->start_date = $request->start_date;
         $employee->status = 'Active';
 
-        return json_encode([
-            'success' => $employee->update()
-        ]);
+        try {
+            if ($employee->save()) {
+                $employee->generateEmailAddress();
+                return json_encode([
+                    'success' => $employee->generateEmailAddress()
+                ]);
+            }
+        } catch (\Exception $error) {
+            throw $error;
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Employee $Employee
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Employee $Employee)
     {
