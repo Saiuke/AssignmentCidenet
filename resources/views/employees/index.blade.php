@@ -94,12 +94,9 @@
             * */
 
             $("body").on("click", ".delete-entry", (event) => {
-                console.log(event);
-                console.log(event.currentTarget);
                 let clickedButton = event.currentTarget;
                 let callURL = clickedButton.getAttribute('data-action-route');
-                let entryId = clickedButton.getAttribute('data-entry-id');
-                console.log(callURL);
+                let entryId = clickedButton.getAttribute('data-entry-id');npm
                 swal({
                     title: "Are you sure?",
                     text: "Once deleted, you will not be able to recover the data!",
